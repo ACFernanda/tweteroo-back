@@ -31,7 +31,7 @@ app.post("/sign-up", (req, res) => {
 app.post("/tweets", (req, res) => {
   const { username, tweet } = req.body;
   const user = users.find((user) => user.username === username);
-  tweets.push({
+  tweets.unshift({
     username: username,
     avatar: user.avatar,
     tweet: tweet,
@@ -41,7 +41,8 @@ app.post("/tweets", (req, res) => {
 
 app.get("/tweets", (req, res) => {
   if (tweets.length > 10) {
-    res.send(tweets.slice((tweets[tweets.length - 1], -10)));
+    const arrayTweets = tweets.slice(0, 10);
+    res.send(arrayTweets);
   } else {
     res.send(tweets);
   }
